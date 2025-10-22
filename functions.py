@@ -6,10 +6,9 @@ def multiline_input(prompt):
         line = input()
         if not line:
             break
-        lines.append(line)
+        lines.append(line.strip())
     output = "\n".join(lines)    
-    return output
 
-multiline_input("Enter a description")
+    return output
 
 
