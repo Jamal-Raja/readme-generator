@@ -4,6 +4,7 @@ from rich.console import Console
 from rich.panel import Panel
 from pathlib import Path
 from functions import *
+import sys
 
 # ============ README GENERATOR ============
 console = Console()
@@ -26,7 +27,7 @@ def create_readme ():
     installation_instructions = multiline_input(f'Enter installation instructions for your {title} project: ')
     features = multiline_input(f'Enter features of your {title} project: ')
     tech_stack = multiline_input(f'Enter tech stack used to build {title}: ')
-    # Update data with users input
+    # Update data_dict with users input
     data_dict.update({
         "title": title,
         "description": description,
@@ -64,5 +65,8 @@ def create_readme ():
     
 
 if __name__ == "__main__":
-    create_readme()
-   
+    try:
+        create_readme()
+    except KeyboardInterrupt:
+        console.print("\n\n\n\n\n\n\n\n\n\n[bold red]Cancelled by user.[/]")
+        sys.exit(0)
