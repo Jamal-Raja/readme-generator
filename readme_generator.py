@@ -67,7 +67,7 @@ def create_readme ():
         console.print(
         Panel.fit(
             f"[bold green]✅ README.md successfully created![/bold green]\n\n"
-            f"[cyan]Location:[/cyan] {Path("README.md").resolve()}",
+            f"[cyan]Location:[/cyan] {Path('README.md').resolve()}",
             title="[bold magenta]Success[/bold magenta]",
             border_style="green",
         )

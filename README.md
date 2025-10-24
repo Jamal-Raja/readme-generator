@@ -1,17 +1,25 @@
-# AJSDSA
+# LOL
 
 ## Description
-asda
-as
+askdmja
+sadas
 
 ## Installation Instructions
-
+asadas
+dasda
+asd
 
 ## Features
+asdad
+asda
+asdasd
+asd
 
-
-## Lisense
-Unlicense
+## License
+Creative Commons (CCO, CC, BY etc.)
 
 ## Tech Stack
-
+asdasdadasdasdsa
+asd
+asd
+asd
