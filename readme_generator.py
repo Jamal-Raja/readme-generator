@@ -7,8 +7,6 @@ from functions import *
 from pick import pick
 import sys
 
-
-
 # ============ README GENERATOR ============
 console = Console()
 ascii_art = text2art("Readme Generator", font="small")
@@ -32,10 +30,8 @@ def create_readme ():
     description = multiline_input(f'Enter description for your {title} project: ')
     installation_instructions = multiline_input(f'Enter installation instructions for your {title} project: ')
     features = multiline_input(f'Enter features of your {title} project: ')
-
     option, index = pick(lisense_options, lisense_prompt)
     lisense = option
-
     tech_stack = multiline_input(f'Enter tech stack used to build {title}: ')
     # Update data_dict with users input
     data_dict.update({
@@ -59,7 +55,7 @@ def create_readme ():
 ## Features
 {data_dict['features']}
 
-## Lisense
+## License
 {data_dict['lisense']}
 
 ## Tech Stack
@@ -77,10 +73,10 @@ def create_readme ():
         )
     )
     
-
 if __name__ == "__main__":
     try:
         create_readme()
     except KeyboardInterrupt:
         console.print("\n\n\n\n\n\n\n\n\n\n[bold red]Cancelled by user.[/]")
         sys.exit(0)
+        
