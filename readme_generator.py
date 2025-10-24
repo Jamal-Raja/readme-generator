@@ -4,28 +4,38 @@ from rich.console import Console
 from rich.panel import Panel
 from pathlib import Path
 from functions import *
+from pick import pick
 import sys
+
+
 
 # ============ README GENERATOR ============
 console = Console()
 ascii_art = text2art("Readme Generator", font="small")
 console.print(ascii_art, style="bright_magenta")
-# console.print("Hiking", style="bold red")
 
 data_dict = {
     "title": "",
     "description": "",
     "installation_instructions": "",
     "features": "",
+    "lisense": "",
     "tech_stack": "",    
 }
 
 def create_readme ():    
+    lisense_prompt = "Select a lisense: "
+    lisense_options = ['MIT License', 'GNU General Public License (GPL V3)', 'GNU Lesser General Public License (LGPL V3)', 'Mozilla Public License', 'Creative Commons (CCO, CC, BY etc.)', '(Unlicensed)']
+
     # Get README content from user
     title = input('Enter your project title: ')
     description = multiline_input(f'Enter description for your {title} project: ')
     installation_instructions = multiline_input(f'Enter installation instructions for your {title} project: ')
     features = multiline_input(f'Enter features of your {title} project: ')
+
+    option, index = pick(lisense_options, lisense_prompt)
+    lisense = option
+
     tech_stack = multiline_input(f'Enter tech stack used to build {title}: ')
     # Update data_dict with users input
     data_dict.update({
@@ -33,6 +43,7 @@ def create_readme ():
         "description": description,
         "installation_instructions": installation_instructions,
         "features": features,
+        "lisense": lisense,
         "tech_stack": tech_stack,
     })
     
@@ -47,6 +58,9 @@ def create_readme ():
 
 ## Features
 {data_dict['features']}
+
+## Lisense
+{data_dict['lisense']}
 
 ## Tech Stack
 {data_dict['tech_stack']}
