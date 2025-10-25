@@ -1,20 +1,10 @@
-# from art import *
-# from rich import print
-# from rich.console import Console
-# from rich.panel import Panel
-# from pathlib import Path
-# from functions import *
-# from pick import pick
 import streamlit as st
-
-# import sys
 
 st.title("README GENERATOR")
 st.caption(
     "Fill in the details below and generate a clean README.md with a single click."
 )
-
-# ================ FORM SECTION ================
+# ================ CONSTANTS ================
 LICENCE_OPTIONS = [
     "MIT Licence",
     "GNU General Public Licence (GPL v3)",
@@ -24,6 +14,14 @@ LICENCE_OPTIONS = [
     "Unlicensed",
 ]
 
+if "readme_content" not in st.session_state:
+    st.session_state.readme_content = ""
+if "missing_fields" not in st.session_state:
+    st.session_state.missing_fields = []
+if "submitted" not in st.session_state:
+    st.session_state.submitted = False
+
+# ================ FORM SECTION ================
 with st.form("readme_form", clear_on_submit=False):
     st.subheader("Project Details")
     title = st.text_input("Project title", placeholder="e.g. warship-api-demo")
@@ -61,6 +59,7 @@ with st.form("readme_form", clear_on_submit=False):
     }
     # HANDLE FORM SUBMISSION
     if submitted:
+        st.session_state.submitted = True
         data_dict.update(
             {
                 "title": title.strip(),
@@ -78,12 +77,16 @@ with st.form("readme_form", clear_on_submit=False):
             if not value:
                 is_missing = True
                 missing_fields.append(name)
+
+        st.session_state.missing_fields = missing_fields
+
         if is_missing:
             st.error(
                 f'Please fill out the following fields: {", ".join(missing_fields).title().replace("_", " ")}'
             )
-
-        readme_content = f"""# {data_dict['title'].upper()}
+            st.session_state.readme_content = ""
+        else:
+            readme_content = f"""# {data_dict['title'].upper()}
 
 ## Description
 {data_dict['description']}
@@ -100,81 +103,25 @@ with st.form("readme_form", clear_on_submit=False):
 ## Tech Stack
 {data_dict['tech_stack']}
 """
-st.write(readme_content)
+            st.session_state.readme_content = readme_content
 
+# ================ PREVIEW SECTION ================
 st.divider()
-
 st.subheader("README.md Preview")
+if (
+    st.session_state.submitted
+    and not st.session_state.missing_fields
+    and st.session_state.readme_content
+):
+    st.code(st.session_state.readme_content, language="markdown")
+    st.download_button(
+        "Download README.MD",
+        data=st.session_state.readme_content,
+        file_name="README.md",
+        mime="text/markdown",
+    )
 
-# # ============ README GENERATOR ============
-# console = Console()
-# ascii_art = text2art("Readme Generator", font="small")
-# console.print(ascii_art, style="bright_magenta")
-
-# data_dict = {
-#     "title": "",
-#     "description": "",
-#     "installation_instructions": "",
-#     "features": "",
-#     "lisense": "",
-#     "tech_stack": "",
-# }
-
-# def create_readme ():
-#     lisense_prompt = "Select a lisense: "
-#     lisense_options = ['MIT License', 'GNU General Public License (GPL V3)', 'GNU Lesser General Public License (LGPL V3)', 'Mozilla Public License', 'Creative Commons (CCO, CC, BY etc.)', '(Unlicensed)']
-
-#     # Get README content from user
-#     title = input('Enter your project title: ')
-#     description = multiline_input(f'Enter description for your {title} project: ')
-#     installation_instructions = multiline_input(f'Enter installation instructions for your {title} project: ')
-#     features = multiline_input(f'Enter features of your {title} project: ')
-#     option, index = pick(lisense_options, lisense_prompt)
-#     lisense = option
-#     tech_stack = multiline_input(f'Enter tech stack used to build {title}: ')
-#     # Update data_dict with users input
-# data_dict.update({
-#     "title": title,
-#     "description": description,
-#     "installation_instructions": installation_instructions,
-#     "features": features,
-#     "lisense": lisense,
-#     "tech_stack": tech_stack,
-# })
-
-#      # --- Create README content ---
-#     readme_content = f"""# {data_dict['title'].upper()}
-
-# ## Description
-# {data_dict['description']}
-
-# ## Installation Instructions
-# {data_dict['installation_instructions']}
-
-# ## Features
-# {data_dict['features']}
-
-# ## License
-# {data_dict['lisense']}
-
-# ## Tech Stack
-# {data_dict['tech_stack']}
-# """
-#     # Create new README.md file and populate with content
-#     with open("README.md", "w") as f:
-#         f.write(readme_content)
-#         console.print(
-#         Panel.fit(
-#             f"[bold green]✅ README.md successfully created![/bold green]\n\n"
-#             f"[cyan]Location:[/cyan] {Path("README.md").resolve()}",
-#             title="[bold magenta]Success[/bold magenta]",
-#             border_style="green",
-#         )
-#     )
-
-# if __name__ == "__main__":
-#     try:
-#         create_readme()
-#     except KeyboardInterrupt:
-#         console.print("\n\n\n\n\n\n\n\n\n\n[bold red]Cancelled by user.[/]")
-#         sys.exit(0)
+elif st.session_state.submitted and st.session_state.missing_fields:
+    st.info("Please complete all fields above and click **Generate README**.")
+else:
+    st.info("Complete the form and click **Generate README** to see a preview here.")
