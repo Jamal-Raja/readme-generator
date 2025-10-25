@@ -63,26 +63,25 @@ with st.form("readme_form", clear_on_submit=False):
     if submitted:
         data_dict.update(
             {
-                "title": (title.strip() if data_dict["title"] else "MISSING TITLE"),
-                "description": (
-                    description.strip() if data_dict["description"] else "N/A"
-                ),
-                "installation_instructions": (
-                    installation_instructions.strip()
-                    if data_dict["installation_instructions"]
-                    else "N/A"
-                ),
-                "features": (features.strip() if data_dict["features"] else "N/A"),
-                "lisense": (lisense.strip() if data_dict["lisense"] else "N/A"),
-                "tech_stack": (
-                    tech_stack.strip() if data_dict["tech_stack"] else "N/A"
-                ),
+                "title": title.strip(),
+                "description": description.strip(),
+                "installation_instructions": installation_instructions.strip(),
+                "features": features.strip(),
+                "lisense": lisense.strip(),
+                "tech_stack": tech_stack.strip(),
             }
         )
-
-        if data_dict["title"]:
-            st.warning("PLEASE FILL OUT FORM U LUN")
-
+        # Error if any field is left empty
+        is_missing = False
+        missing_fields = []
+        for name, value in data_dict.items():
+            if not value:
+                is_missing = True
+                missing_fields.append(name)
+        if is_missing:
+            st.error(
+                f'Please fill out the following fields: {", ".join(missing_fields).title().replace("_", " ")}'
+            )
 
         readme_content = f"""# {data_dict['title'].upper()}
 
@@ -101,6 +100,7 @@ with st.form("readme_form", clear_on_submit=False):
 ## Tech Stack
 {data_dict['tech_stack']}
 """
+st.write(readme_content)
 
 st.divider()
 
