@@ -55,11 +55,3 @@ Then open the local URL displayed in your terminal (usually `http://localhost:85
 ├── requirements.txt  # Requirements (includes Streamlit pin)
 └── README.md                                  # (You are here)
 ```
-
-## Usage Notes
-- Required fields: The app validates that all fields are filled before generating the README.
-- Output format: The generated Markdown includes the sections you provide and uses your exact text (no auto-reformatting).
-
-## Acknowledgements
-- Built with [Streamlit].
-- Thanks to the open-source community for inspiration on lightweight documentation tools.
