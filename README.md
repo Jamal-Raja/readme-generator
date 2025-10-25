@@ -1,4 +1,4 @@
-# README – README Generator (Streamlit) 
+# README Generator
 
 ## Overview
 A simple Streamlit app that helps you generate clean, consistent `README.md` files for your projects. Fill in a short form, preview the output, and download the Markdown in one click.
