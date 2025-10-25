@@ -17,7 +17,7 @@ A simple Streamlit app that helps you generate clean, consistent `README.md` fil
 
 ## Tech Stack
 
-### 🧠 Languages & Frameworks
+### Languages & Frameworks
 - **Python 3.9+**
 - **Streamlit** – For creating the interactive web interface.
 
