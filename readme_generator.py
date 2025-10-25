@@ -120,6 +120,12 @@ if (
         file_name="README.md",
         mime="text/markdown",
     )
+    st.success(
+        """Press the button above to download your README.md 
+
+
+You can also copy it manually via the copy-to-clipboard icon in the top right of the Preview"""
+    )
 
 elif st.session_state.submitted and st.session_state.missing_fields:
     st.info("Please complete all fields above and click **Generate README**.")
