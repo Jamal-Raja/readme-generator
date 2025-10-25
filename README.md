@@ -60,10 +60,6 @@ Then open the local URL displayed in your terminal (usually `http://localhost:85
 - Required fields: The app validates that all fields are filled before generating the README.
 - Output format: The generated Markdown includes the sections you provide and uses your exact text (no auto-reformatting).
 
-## Known Issues / Fixes
-- Minor typos in variable names: The form stores licence text in a variable named `lisense`. Functionality works, but consider renaming this to `license` throughout for clarity.
-- String split over lines: If you encounter a syntax error at the `st.subheader("Project Details")` line, ensure the full string literal is on one line (no stray newline between the opening quote and text).
-
 ## Acknowledgements
 - Built with [Streamlit].
 - Thanks to the open-source community for inspiration on lightweight documentation tools.
