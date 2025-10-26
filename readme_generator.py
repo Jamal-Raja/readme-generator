@@ -8,6 +8,8 @@ st.caption(
     "<p style='text-align: center;'>Fill in the details below and generate a clean README.md with a single click.</p>",
     unsafe_allow_html=True,
 )
+
+
 # ================ CONSTANTS ================
 class Constants:
     LICENCE_OPTIONS = [
@@ -59,8 +61,9 @@ with col1:
         tech_stack = st.text_area(
             "Tech Stack", placeholder="- React\n- Express.js\n- Node.js ", height=130
         )
-
-        submitted = st.form_submit_button("Generate README")
+        c1, c2, c3 = st.columns([1, 1, 1])
+        with c2:
+            submitted = st.form_submit_button("Generate README")
 
         data_dict = {
             "title": "",
@@ -129,12 +132,14 @@ with col2:
         and st.session_state.readme_content
     ):
         st.code(st.session_state.readme_content, language="markdown")
-        st.download_button(
-            "Download README.MD",
-            data=st.session_state.readme_content,
-            file_name="README.md",
-            mime="text/markdown",
-        )
+        c1, c2, c3 = st.columns([1, 1, 1])
+        with c2:
+            st.download_button(
+                "Download README.md",
+                data=st.session_state.readme_content,
+                file_name="README.md",
+                mime="text/markdown",
+            )
         st.success("Press the button above to download your README.md.")
 
     elif st.session_state.submitted and st.session_state.missing_fields:
